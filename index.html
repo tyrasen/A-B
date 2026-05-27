@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ekaf Shop – Pagnes & Textiles Africains</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --or:        #E8A020;
+      --or-clair:  #F5C842;
+      --brun:      #7A4F2D;
+      --brun-mid:  #A0733F;
+      --creme:     #FFFFFF;
+      --blanc:     #FFFFFF;
+      --texte:     #3D2B1A;
+      --gris:      #A08060;
+      --accent:    #E8612A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #FFF8F0;
+      color: var(--texte);
+      overflow-x: hidden;
+    }
+
+    /* ── BARRE SUPÉRIEURE ── */
+    .topbar {
+      background: var(--or);
+      color: #fff;
+      text-align: center;
+      padding: 8px 20px;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--creme);
+      border-bottom: 2px solid var(--or);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 60px;
+      box-shadow: 0 4px 24px rgba(42,26,14,.08);
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--brun);
+      letter-spacing: .04em;
+    }
+    .logo-main span { color: var(--or); }
+    .logo-sub {
+      font-size: .65rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gris);
+      margin-top: 2px;
+    }
+
+    nav { display: flex; gap: 36px; }
+    nav a {
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--brun-mid);
+      position: relative;
+      padding-bottom: 4px;
+      transition: color .25s;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--or);
+      transition: width .3s;
+    }
+    nav a:hover { color: var(--or); }
+    nav a:hover::after { width: 100%; }
+
+    .header-actions { display: flex; gap: 16px; align-items: center; }
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,211,102,.35);
+    }
+    .btn-whatsapp svg { width: 18px; height: 18px; fill: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(232,160,32,.10) 0, rgba(232,160,32,.10) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, rgba(232,160,32,.10) 0, rgba(232,160,32,.10) 1px, transparent 0, transparent 50%);
+      background-size: 30px 30px;
+    }
+
+    /* EMPLACEMENT PHOTO HERO */
+    .hero-image-slot {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 52%;
+      background: #FFD49A;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-left: 3px solid var(--or);
+    }
+    .hero-image-slot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      /* Remplacez src par votre image : src="images/hero.jpg" */
+    }
+    .photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: .5;
+    }
+    .photo-placeholder svg { width: 56px; height: 56px; fill: var(--brun-mid); }
+    .photo-placeholder p { color: var(--brun-mid); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 60px;
+      max-width: 52%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--or);
+      color: var(--brun);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 900;
+      color: var(--texte);
+      line-height: 1.12;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--or);
+    }
+    .hero p {
+      font-size: 1rem;
+      color: var(--brun-mid);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--or);
+      color: var(--brun);
+      border: none;
+      padding: 14px 36px;
+      border-radius: 2px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .25s, transform .2s;
+    }
+    .btn-primary:hover { background: var(--or-clair); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--brun);
+      border: 2px solid var(--brun-mid);
+      padding: 14px 36px;
+      border-radius: 2px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color .25s, color .25s, background .25s;
+    }
+    .btn-outline:hover { border-color: var(--or); color: var(--or); background: rgba(232,160,32,.07); }
+
+    /* ── BANDEAU VALEURS ── */
+    .valeurs {
+      background: var(--or);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+    .valeur-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 48px;
+      border-right: 1px solid rgba(42,26,14,.15);
+    }
+    .valeur-item:last-child { border-right: none; }
+    .valeur-item svg { width: 24px; height: 24px; fill: var(--brun); flex-shrink: 0; }
+    .valeur-item span { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--brun); }
+
+    /* ── SECTION TITRE ── */
+    .section-header {
+      text-align: center;
+      padding: 80px 60px 40px;
+    }
+    .section-header .tag {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--or);
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 900;
+      color: var(--brun);
+      line-height: 1.2;
+    }
+    .section-header p {
+      color: var(--gris);
+      font-size: .95rem;
+      margin-top: 12px;
+      max-width: 520px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.7;
+    }
+    .ornement {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .ornement-line { width: 60px; height: 1px; background: var(--or); }
+    .ornement-diamond {
+      width: 8px; height: 8px;
+      background: var(--or);
+      transform: rotate(45deg);
+    }
+
+    /* ── GRILLE PRODUITS ── */
+    .produits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+      padding: 0 60px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .3s;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(42,26,14,.15); z-index: 2; }
+
+    /* EMPLACEMENT PHOTO PRODUIT */
+    .card-image {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: #F0E8DC;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .card:hover .card-image img { transform: scale(1.05); }
+
+    .card-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: .4;
+    }
+    .card-image-placeholder svg { width: 48px; height: 48px; fill: var(--brun-mid); }
+    .card-image-placeholder p { font-size: .75rem; color: var(--brun-mid); letter-spacing: .1em; text-transform: uppercase; }
+
+    .card-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+    .card-badge.nouveau { background: var(--brun); }
+    .card-badge.promo { background: var(--accent); }
+
+    .card-body { padding: 22px; }
+    .card-categorie {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--or);
+      margin-bottom: 6px;
+    }
+    .card-nom {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--brun);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .card-desc {
+      font-size: .82rem;
+      color: var(--gris);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-prix {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--brun);
+    }
+    .card-prix .devise { font-size: .75rem; font-family: 'Barlow', sans-serif; color: var(--gris); }
+    .btn-commander {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--brun);
+      color: var(--or-clair);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 2px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .25s;
+    }
+    .btn-commander:hover { background: var(--or); color: var(--brun); }
+    .btn-commander svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ── SECTION COMMANDE ── */
+    .section-commande {
+      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+      padding: 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-commande::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      border: 60px solid rgba(232,160,32,.12);
+    }
+    .commande-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .commande-texte h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--texte);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .commande-texte h2 em { color: var(--or); font-style: italic; }
+    .commande-texte p { color: var(--brun-mid); line-height: 1.8; font-size: .95rem; margin-bottom: 32px; }
+    .commande-etapes { display: flex; flex-direction: column; gap: 20px; }
+    .etape { display: flex; gap: 16px; align-items: flex-start; }
+    .etape-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--or);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--or);
+      font-size: .9rem;
+    }
+    .etape-texte strong { display: block; color: var(--texte); font-size: .9rem; margin-bottom: 4px; }
+    .etape-texte span { color: var(--gris); font-size: .82rem; line-height: 1.6; }
+
+    .commande-contact { display: flex; flex-direction: column; gap: 20px; }
+    .contact-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(201,150,58,.25);
+      border-radius: 6px;
+      padding: 28px;
+      text-align: center;
+      transition: border-color .25s, background .25s;
+    }
+    .contact-card:hover { border-color: var(--or); background: rgba(201,150,58,.07); }
+    .contact-card svg { width: 36px; height: 36px; margin-bottom: 12px; }
+    .contact-card .contact-label { font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+    .contact-card .contact-val { font-size: 1rem; font-weight: 600; color: var(--creme); margin-bottom: 16px; }
+    .contact-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--or);
+      color: var(--brun);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 2px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .25s;
+    }
+    .contact-card a:hover { background: var(--or-clair); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--texte);
+      color: rgba(250,243,232,.55);
+      text-align: center;
+      padding: 40px 60px;
+    }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--creme);
+      margin-bottom: 8px;
+    }
+    footer .footer-logo span { color: var(--or); }
+    footer p { font-size: .8rem; line-height: 1.8; }
+    footer a { color: var(--or); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-line { width: 60px; height: 1px; background: var(--or); margin: 16px auto; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      animation: fadeUp .7s ease both;
+    }
+    .hero-tag   { animation-delay: .1s; }
+    .hero h1    { animation-delay: .25s; }
+    .hero p     { animation-delay: .4s; }
+    .hero-btns  { animation-delay: .55s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      header { padding: 14px 24px; }
+      nav { display: none; }
+      .hero { flex-direction: column; min-height: auto; }
+      .hero-image-slot { position: relative; width: 100%; height: 300px; border-left: none; border-top: 3px solid var(--or); }
+      .hero-content { max-width: 100%; padding: 48px 24px; }
+      .produits-grid { padding: 0 24px 60px; }
+      .section-header { padding: 60px 24px 32px; }
+      .valeurs { flex-direction: column; gap: 0; }
+      .valeur-item { border-right: none; border-bottom: 1px solid rgba(42,26,14,.15); justify-content: center; }
+      .commande-inner { grid-template-columns: 1fr; gap: 40px; }
+      .section-commande { padding: 60px 24px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BARRE SUPÉRIEURE -->
+<div class="topbar">🌍 Livraison disponible · Commandez via WhatsApp au +226 71 32 26 19</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <span class="logo-main">Ekaf <span>Shop</span></span>
+    <span class="logo-sub">Pagnes & Textiles Africains</span>
+  </div>
+  <nav>
+    <a href="#produits">Produits</a>
+    <a href="#commander">Commander</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-actions">
+    <a class="btn-whatsapp" href="https://wa.me/22671322619" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Commander
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-content">
+    <span class="hero-tag">✦ Collection Authentique</span>
+    <h1>Les plus beaux<br/><em>Pagnes Hollandais</em><br/>à votre portée</h1>
+    <p>Découvrez notre sélection de pagnes Hollandex, wax et tissus africains haut de gamme. Qualité premium, couleurs vibrantes, livraison rapide.</p>
+    <div class="hero-btns">
+      <a href="#produits" class="btn-primary">Voir la boutique</a>
+      <a href="https://wa.me/22671322619" target="_blank" class="btn-outline">Commander sur WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- EMPLACEMENT PHOTO HERO — remplacez le placeholder par : <img src="images/hero.jpg" alt="Pagnes Hollandais"> -->
+  <div class="hero-image-slot">
+    <div class="photo-placeholder">
+      <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+      <p>Photo principale<br/>hero.jpg</p>
+    </div>
+  </div>
+</section>
+
+<!-- BANDEAU VALEURS -->
+<div class="valeurs">
+  <div class="valeur-item">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+    <span>Qualité garantie</span>
+  </div>
+  <div class="valeur-item">
+    <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+    <span>Livraison rapide</span>
+  </div>
+  <div class="valeur-item">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    <span>100 % Authentique</span>
+  </div>
+  <div class="valeur-item">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <span>Support WhatsApp</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--              SECTION PRODUITS              -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="produits">
+  <div class="section-header">
+    <span class="tag">✦ Notre Boutique</span>
+    <h2>Nos Produits Phares</h2>
+    <p>Pagnes Hollandex, wax imprimés, tissus brodés et bien plus. Pour chaque occasion, la bonne étoffe.</p>
+    <div class="ornement">
+      <div class="ornement-line"></div>
+      <div class="ornement-diamond"></div>
+      <div class="ornement-line"></div>
+    </div>
+  </div>
+
+  <div class="produits-grid">
+
+    <!-- ─── PRODUIT 1 ─── -->
+    <div class="card">
+      <div class="card-image">
+        <!-- Pour ajouter votre photo : remplacez ci-dessous par <img src="images/pagne-hollandex-rouge.jpg" alt="Pagne Hollandex Rouge"> -->
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          <p>Photo produit<br/>pagne-1.jpg</p>
+        </div>
+        <span class="card-badge nouveau">Nouveau</span>
+      </div>
+      <div class="card-body">
+        <p class="card-categorie">Pagne Hollandex</p>
+        <h3 class="card-nom">Hollandex Imprimé Rouge Royale</h3>
+        <p class="card-desc">Tissu wax premium 100 % coton, motifs traditionnels africains, 6 yards par pièce.</p>
+        <div class="card-footer">
+          <div class="card-prix">8 500 <span class="devise">FCFA / pièce</span></div>
+          <a class="btn-commander" href="https://wa.me/22671322619?text=Bonjour,%20je%20voudrais%20commander%20le%20Hollandex%20Imprimé%20Rouge%20Royale" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PRODUIT 2 ─── -->
+    <div class="card">
+      <div class="card-image">
+        <!-- <img src="images/pagne-hollandex-bleu.jpg" alt="Pagne Hollandex Bleu"> -->
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          <p>Photo produit<br/>pagne-2.jpg</p>
+        </div>
+        <span class="card-badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <p class="card-categorie">Pagne Hollandex</p>
+        <h3 class="card-nom">Hollandex Bleu Indigo Traditionnel</h3>
+        <p class="card-desc">Motifs géométriques, teintes naturelles indigo, idéal pour cérémonies et mariages.</p>
+        <div class="card-footer">
+          <div class="card-prix">7 200 <span class="devise">FCFA / pièce</span></div>
+          <a class="btn-commander" href="https://wa.me/22671322619?text=Bonjour,%20je%20voudrais%20commander%20le%20Hollandex%20Bleu%20Indigo%20Traditionnel" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PRODUIT 3 ─── -->
+    <div class="card">
+      <div class="card-image">
+        <!-- <img src="images/wax-multicolore.jpg" alt="Wax Multicolore"> -->
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          <p>Photo produit<br/>pagne-3.jpg</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-categorie">Wax Africain</p>
+        <h3 class="card-nom">Wax Multicolore Fleurs Sauvages</h3>
+        <p class="card-desc">Imprimé floral aux couleurs éclatantes, 100 % coton lavable, largeur 113 cm.</p>
+        <div class="card-footer">
+          <div class="card-prix">6 500 <span class="devise">FCFA / pièce</span></div>
+          <a class="btn-commander" href="https://wa.me/22671322619?text=Bonjour,%20je%20voudrais%20commander%20le%20Wax%20Multicolore%20Fleurs%20Sauvages" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PRODUIT 4 ─── -->
+    <div class="card">
+      <div class="card-image">
+        <!-- <img src="images/broderie-bazin.jpg" alt="Bazin brodé"> -->
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          <p>Photo produit<br/>pagne-4.jpg</p>
+        </div>
+        <span class="card-badge nouveau">Exclusif</span>
+      </div>
+      <div class="card-body">
+        <p class="card-categorie">Bazin Brodé</p>
+        <h3 class="card-nom">Bazin Riche Doré Broderie Or</h3>
+        <p class="card-desc">Tissu bazin premium avec broderie dorée artisanale, parfait pour les grandes occasions.</p>
+        <div class="card-footer">
+          <div class="card-prix">15 000 <span class="devise">FCFA / pièce</span></div>
+          <a class="btn-commander" href="https://wa.me/22671322619?text=Bonjour,%20je%20voudrais%20commander%20le%20Bazin%20Riche%20Doré%20Broderie%20Or" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PRODUIT 5 ─── -->
+    <div class="card">
+      <div class="card-image">
+        <!-- <img src="images/kente-classique.jpg" alt="Kente classique"> -->
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          <p>Photo produit<br/>pagne-5.jpg</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-categorie">Tissu Kente</p>
+        <h3 class="card-nom">Kente Classique Rayures Or & Vert</h3>
+        <p class="card-desc">Tissu kente tressé à la main, motifs royaux, utilisé dans les fêtes et cérémonies.</p>
+        <div class="card-footer">
+          <div class="card-prix">12 000 <span class="devise">FCFA / pièce</span></div>
+          <a class="btn-commander" href="https://wa.me/22671322619?text=Bonjour,%20je%20voudrais%20commander%20le%20Kente%20Classique%20Rayures" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PRODUIT 6 ─── -->
+    <div class="card">
+      <div class="card-image">
+        <!-- <img src="images/wax-enfant.jpg" alt="Wax Enfant"> -->
+        <div class="card-image-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          <p>Photo produit<br/>pagne-6.jpg</p>
+        </div>
+        <span class="card-badge promo">Promo</span>
+      </div>
+      <div class="card-body">
+        <p class="card-categorie">Wax Enfant</p>
+        <h3 class="card-nom">Wax Junior Animaux de la Savane</h3>
+        <p class="card-desc">Imprimé ludique pour enfants, couleurs vives lavées à l'eau froide, doux sur la peau.</p>
+        <div class="card-footer">
+          <div class="card-prix">4 500 <span class="devise">FCFA / pièce</span></div>
+          <a class="btn-commander" href="https://wa.me/22671322619?text=Bonjour,%20je%20voudrais%20commander%20le%20Wax%20Junior%20Animaux%20de%20la%20Savane" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /produits-grid -->
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--            SECTION COMMANDER               -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section-commande" id="commander">
+  <div class="commande-inner">
+
+    <div class="commande-texte">
+      <h2>Commandez en <em>toute simplicité</em></h2>
+      <p>Pas de panier compliqué. Contactez-nous directement sur WhatsApp ou par email, nous vous guidons du choix à la livraison.</p>
+      <div class="commande-etapes">
+        <div class="etape">
+          <div class="etape-num">1</div>
+          <div class="etape-texte">
+            <strong>Choisissez votre produit</strong>
+            <span>Parcourez notre catalogue et notez le nom du produit qui vous intéresse.</span>
+          </div>
+        </div>
+        <div class="etape">
+          <div class="etape-num">2</div>
+          <div class="etape-texte">
+            <strong>Contactez-nous</strong>
+            <span>Envoyez-nous un message WhatsApp ou un email avec votre sélection.</span>
+          </div>
+        </div>
+        <div class="etape">
+          <div class="etape-num">3</div>
+          <div class="etape-texte">
+            <strong>Confirmez & recevez</strong>
+            <span>Nous confirmons votre commande et organisons la livraison rapidement.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="commande-contact" id="contact">
+      <!-- WhatsApp -->
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" style="fill:#25D366">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <p class="contact-label">Commander sur WhatsApp</p>
+        <p class="contact-val">+226 71 32 26 19</p>
+        <a href="https://wa.me/22671322619?text=Bonjour%20Ekaf%20Shop,%20je%20souhaite%20passer%20une%20commande." target="_blank">
+          Ouvrir WhatsApp →
+        </a>
+      </div>
+
+      <!-- Email -->
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" style="fill:var(--or-clair)">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        <p class="contact-label">Nous écrire par Email</p>
+        <p class="contact-val">kindaabdoullatif6@gmail.com</p>
+        <a href="mailto:kindaabdoullatif6@gmail.com?subject=Commande%20Ekaf%20Shop">
+          Envoyer un Email →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ekaf <span>Shop</span></div>
+  <div class="footer-line"></div>
+  <p>
+    Pagnes Hollandex · Wax Africain · Bazin Brodé · Tissu Kente<br/>
+    <a href="https://wa.me/22671322619">+226 71 32 26 19</a> &nbsp;·&nbsp;
+    <a href="mailto:kindaabdoullatif6@gmail.com">kindaabdoullatif6@gmail.com</a>
+  </p>
+  <p style="margin-top:16px; font-size:.72rem;">© 2025 Ekaf Shop – Tous droits réservés</p>
+</footer>
+
+</body>
+</html>
